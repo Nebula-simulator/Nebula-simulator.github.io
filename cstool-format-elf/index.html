@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Optical data file format - Nebula documentation</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Nebula documentation</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">cstool <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../cstool-install/" class="dropdown-item">Installation</a>
+</li>
+                                    
+<li>
+    <a href="../cstool-run/" class="dropdown-item">Running</a>
+</li>
+                                    
+<li>
+    <a href="../cstool-format-yaml/" class="dropdown-item">Parameter file format</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Optical data file format</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Nebula <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../nebula-install/" class="dropdown-item">Installation</a>
+</li>
+                                    
+<li>
+    <a href="../nebula-run/" class="dropdown-item">Running</a>
+</li>
+                                    
+<li>
+    <a href="../nebula-format-tri/" class="dropdown-item">Geometry file format</a>
+</li>
+                                    
+<li>
+    <a href="../nebula-format-pri/" class="dropdown-item">Electron file format</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../tutorial-reels/" class="dropdown-item">REELS</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../cstool-format-yaml/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../nebula-install/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#cstool-optical-data-file-format" class="nav-link">cstool optical data file format</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#sourcing-the-data" class="nav-link">Sourcing the data</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-file-format" class="nav-link">The file format</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="cstool-optical-data-file-format">cstool optical data file format</h1>
+<p>cstool needs optical data to represent the probability of electron energy loss
+in a material. The specific optical data we need is the dielectric function, or
+<em>n</em> and <em>k</em> values as they are sometimes known.</p>
+<h2 id="sourcing-the-data">Sourcing the data</h2>
+<p>Good sources for optical data include:</p>
+<ul>
+<li>The book <em>Handbook of Optical Constants of Solids</em> by E.D. Palik</li>
+<li>The website <a href="https://refractiveindex.info/">refractiveindex.info</a></li>
+<li>The <a href="https://henke.lbl.gov/optical_constants/getdb2.html">CXRO database</a> for
+   high energy photons (30 eV and beyond).</li>
+</ul>
+<p>In the visible light range, the dielectric function is often given as <em>n</em> and <em>k</em>
+values. They are related to the dielectric function by</p>
+<pre><code>    ϵ = (n + ik)²
+</code></pre>
+
+<p>where i is the imaginary unit. In the X-ray range, the popular parameters are
+<em>δ</em> and <em>β</em>. They are related to <em>n</em> and <em>k</em> by</p>
+<pre><code>    n = 1 - δ
+    k = β
+</code></pre>
+
+<p>Note that the CXRO website is incorrect: it has a header saying that k = -β, but
+that's not true.</p>
+<p>Nebula needs to know the <em>energy loss function</em> (ELF), equal to</p>
+<pre><code>    ELF = Im(-1/ϵ)
+</code></pre>
+
+<p>Loosely speaking, the ELF reflects the probability that an electron loses a
+certain amount of energy. Therefore, an accurate simulation requires this
+optical data to be tabulated over a very large range of photon energies, from
+sub-eV to the highest energy of interest (typically in the keV range).</p>
+<h2 id="the-file-format">The file format</h2>
+<p>We use an older file format first used in the simulator of
+<a href="https://doi.org/10.1088/0022-3727/41/21/215310">Kieft and Bosch</a>. Such a file
+may look as follows:</p>
+<pre><code>1.12    5   8.9 100 1839    -1
+0.01116 1.45249E-05
+0.04959 4.57441E-06
+    [snip]
+4000    5.12708E-06
+8000    3.54308E-07
+-1  -1
+</code></pre>
+
+<p>The first line contains binding energies of electrons. This is only relevant for
+the semi-empirical model of Kieft and Bosch, which we don't reccommend to use.
+These energies are in units of electronvolts, the list is terminated by -1. If
+you are not interested in the model by Kieft and Bosch, a line with only -1 is
+sufficient. (It must be present, though!)</p>
+<p>The lines below that have two columns. The first value is the photon energy in
+eV. The second value is the ELF (which is unitless).</p>
+<p>Finally, the last line is two times -1. This line must always be there.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Parameter file format - Nebula documentation</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Nebula documentation</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">cstool <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../cstool-install/" class="dropdown-item">Installation</a>
+</li>
+                                    
+<li>
+    <a href="../cstool-run/" class="dropdown-item">Running</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Parameter file format</a>
+</li>
+                                    
+<li>
+    <a href="../cstool-format-elf/" class="dropdown-item">Optical data file format</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Nebula <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../nebula-install/" class="dropdown-item">Installation</a>
+</li>
+                                    
+<li>
+    <a href="../nebula-run/" class="dropdown-item">Running</a>
+</li>
+                                    
+<li>
+    <a href="../nebula-format-tri/" class="dropdown-item">Geometry file format</a>
+</li>
+                                    
+<li>
+    <a href="../nebula-format-pri/" class="dropdown-item">Electron file format</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../tutorial-reels/" class="dropdown-item">REELS</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../cstool-run/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../cstool-format-elf/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#cstool-parameter-file-format" class="nav-link">cstool parameter file format</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#generic-parameters" class="nav-link">Generic parameters</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#element-list" class="nav-link">Element list</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#band-structure" class="nav-link">Band structure</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#optical" class="nav-link">Optical</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#phonon" class="nav-link">Phonon</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="cstool-parameter-file-format">cstool parameter file format</h1>
+<p>Parameters for cstool are provided in the YAML text format. An example paramter
+file is:</p>
+<pre><code class="yaml">name:           alumina
+density:        3.98 g/cm³
+
+elements:
+    Al: { count: 2, Z: 13, M: 26.982 g/mol }
+    O:  { count: 3, Z:  8, M: 15.999 g/mol }
+
+band_structure:
+    model:      insulator
+    valence:    3.64 eV
+    band_gap:   7.0 eV
+    affinity:   3.71 eV
+
+optical:
+    df_file:   elf/df_Al2O3.dat
+
+phonon:
+    lattice:    4.76 Å
+
+    isotropic:
+        ac_def: 13.0 eV
+
+    longitudinal:
+        c_s:    11003 m/s
+
+    transversal:
+        c_s:    6512 m/s
+</code></pre>
+
+<h2 id="generic-parameters">Generic parameters</h2>
+<p>The following generic parameters are required:</p>
+<ul>
+<li>Name</li>
+<li>Density</li>
+</ul>
+<p>These parameters speak for themselves.</p>
+<h2 id="element-list">Element list</h2>
+<p>Next in the example file is the list of elements in the material. Each element
+should have its own entry; each entry should look like this:</p>
+<pre><code class="yaml">    Al: { count: 2, Z: 13, M: 26.982 g/mol }
+</code></pre>
+
+<ul>
+<li><code>Al</code> is the name of the element. This is not used by cstool, but you should
+   use a reasonable name for the benefit of other humans.</li>
+<li><code>count</code> is the number of atoms per unit cell</li>
+<li><code>Z</code> is the atomic number</li>
+<li><code>M</code> is the average atomic mass</li>
+</ul>
+<h2 id="band-structure">Band structure</h2>
+<p>We use a very simplistic band structure model. Metals have a single band, the
+conduction band. Semiconductors and insulators have two bands, the valence and
+conduction bands, with a band gap in between.</p>
+<p>The parameter you need to provide is <code>model</code>, which can be <code>metal</code>,
+<code>semiconductor</code> or <code>insulator</code>. The semiconductor and insulator models are
+actually equivalent.</p>
+<p>If the model is <code>metal</code>, the following parameters are required:</p>
+<ul>
+<li><code>fermi</code>: The position of the Fermi energy, with respect to the bottom of the
+   conduction band</li>
+<li><code>work_function</code>: The work function</li>
+</ul>
+<p>If the model is <code>semiconductor</code> or <code>insulator</code>, we need the following parameters:</p>
+<ul>
+<li><code>valence</code>: the width of the valence band</li>
+<li><code>band_gap</code>:  the band gap</li>
+<li><code>affinity</code>: the electron affinity</li>
+</ul>
+<h2 id="optical">Optical</h2>
+<p>Only one parameter is possible here, <code>df_file</code>. This is the file name with
+optical parameters. The exact file format of that file is described
+<a href="../cstool-format-elf/">here</a>.</p>
+<h2 id="phonon">Phonon</h2>
+<p>These are parameters for the electron-acoustic phonon scattering model of
+<a href="https://doi.org/10.1016/S0368-2048(01)00368-1">Schreiber and Fitting</a>.</p>
+<p>The phonon section may look as follows (parameters are for silicon):</p>
+<pre><code class="yaml">phonon:
+    lattice:    5.43071 Å
+    m_dos:      1.08 m_e
+    m_eff:      0.26 m_e
+
+    longitudinal:
+        alpha:  2.00e-7 m²/s
+        c_s:    9130 m/s
+        ac_def: 9.2 eV
+
+    transversal:
+        alpha:  2.26e-7 m²/s
+        c_s:    5842 m/s
+        ac_def: 5.0 eV
+</code></pre>
+
+<p>One parameter is always required:</p>
+<ul>
+<li><code>lattice</code>, which is the material's lattice constant.</li>
+</ul>
+<p>Two parameters are optional:</p>
+<ul>
+<li><code>m_eff</code>: the effective mass of the electron</li>
+<li><code>m_dos</code>: the density-of-states mass of the electron</li>
+</ul>
+<p>If these are not provided, they are set to the electron rest mass in vacuum.</p>
+<p>There are three phonon modes: two transverse and a longitudinal one. Per mode,
+two parameters are required:</p>
+<ul>
+<li><code>c_s</code>: the speed of sound</li>
+<li><code>ac_def</code>: the acoustic deformation potential</li>
+</ul>
+<p>Another parameter is optional:</p>
+<ul>
+<li><code>alpha</code>, with units of m²/s, describes the band bending of the phonon
+   dispersion relation near the Brillouin zone edge. This is zero by default.</li>
+</ul>
+<p>In practice, it is very difficult to find the acoustic deformation potential in
+literature. If it is available, it is often an effective value combining the
+longitudinal and transverse modes. If that happens, you can provide the
+<code>ac_def</code>, <code>c_s</code> and <code>alpha</code> parameters in an <code>isotropic</code> branch instead of the
+longitudinal and transverse branches separately. If you do have separate
+longitudinal and transverse speeds of sounds, you can provide these in their
+respective branches, and <code>cstool</code> will automatically combine them with the
+isotropic acoustic deformation potential. This has happened in the parameter
+file all the way at the top of this page.</p>
+<p>Finally, for metals, there is a way to estimate the acoustic deformation
+potential using the resistivity (which is much easier to find). Instead of
+providing <code>ac_def</code> in the isotropic branch, you may provide a <code>resistivity</code>
+parameter. The phonon section may then look as follows (parameters are for gold):</p>
+<pre><code class="yaml">phonon:
+    lattice:         4.0782 Å
+
+    isotropic:
+        resistivity: 2.44e-8 Ω m
+
+    longitudinal:
+        c_s:         3240 m/s
+
+    transversal:
+        c_s:         1200 m/s
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

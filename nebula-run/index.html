@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Running - Nebula documentation</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Nebula documentation</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">cstool <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../cstool-install/" class="dropdown-item">Installation</a>
+</li>
+                                    
+<li>
+    <a href="../cstool-run/" class="dropdown-item">Running</a>
+</li>
+                                    
+<li>
+    <a href="../cstool-format-yaml/" class="dropdown-item">Parameter file format</a>
+</li>
+                                    
+<li>
+    <a href="../cstool-format-elf/" class="dropdown-item">Optical data file format</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Nebula <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../nebula-install/" class="dropdown-item">Installation</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Running</a>
+</li>
+                                    
+<li>
+    <a href="../nebula-format-tri/" class="dropdown-item">Geometry file format</a>
+</li>
+                                    
+<li>
+    <a href="../nebula-format-pri/" class="dropdown-item">Electron file format</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../tutorial-reels/" class="dropdown-item">REELS</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../nebula-install/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../nebula-format-tri/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#running-nebula" class="nav-link">Running Nebula</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#invoking-via-the-command-line" class="nav-link">Invoking via the command line</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#command-line-parameters" class="nav-link">Command line parameters</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="running-nebula">Running Nebula</h1>
+<p>After you have compiled nebula, the <code>build/bin</code> folder contains two or three
+executables:</p>
+<ul>
+<li><code>nebula_gpu</code>:      This is the main simulator program that runs on the GPU.
+                      It is only compiled if a CUDA compiler was found on the
+                      system.</li>
+<li><code>nebula_cpu_mt</code>:   This is a multi-threaded CPU-only version.</li>
+<li><code>nebula_cpu_edep</code>: A special CPU-only version that outputs locations inside
+                      the sample where energy was lost.</li>
+</ul>
+<h2 id="invoking-via-the-command-line">Invoking via the command line</h2>
+<p>Each of the programs is run with the following signature:</p>
+<pre><code class="sh">./nebula [options] geometry.tri primaries.pri material1.hdf5 [...] materialN.hdf5
+</code></pre>
+
+<p>The exact file formats of the <a href="../nebula-format-tri/">geometry</a> and
+<a href="../nebula-format-pri/">primary electrons</a> are described in detail on separate
+pages. We also provide <a href="../tutorial-reels/">tutorials</a> and that should get you
+up and running with your first simulations.</p>
+<p>The geometry file labels materials by numbers. These numbers are directly
+related to the order in which materials are supplied to the command line.
+Material 0 in the geometry file refers to the first material supplied to the
+command line, 1 in the geometry file refers to the second material on the
+command line, and so on.</p>
+<p>The simulator sends its output (which is in a binary format) to the standard
+output. This output should be redirected to a file or a program that analyses
+the output on-the-fly. Redirecting to a file works as follows:</p>
+<pre><code class="sh">./nebula (parameters) &gt; target_file
+</code></pre>
+
+<h2 id="command-line-parameters">Command line parameters</h2>
+<p>The other options may be supplied in the format <code>--key = value</code>. Each of the
+executables has the following available options:</p>
+<ul>
+<li><code>seed</code>:             Sets the random seed. The seed is not randomized by
+                       default. Note though, that if the simulation runs on
+                       multiple GPUs or CPU cores simultaneously, work is
+                       assigned to threads in an unpredictable manner. So for
+                       reproducibility, the simulation must always be run on a
+                       single GPU or CPU core.</li>
+<li><code>energy-threshold</code>: Sets the lowest energy (w.r.t. vacuum level) to be
+                       included in the simulation. By default, this is zero, so
+                       all electrons that can reach the vacuum are simulated.
+                       Increasing this setting means that electrons are taken
+                       out of the simulation sooner, which can lead to big
+                       speedups.</li>
+</ul>
+<p><code>nebula_gpu</code> has a few options specific to running the simulator on a GPU. These
+are mostly a consequence of the fact that we cannot dynamically allocate more
+memory on the GPU. The options are:</p>
+<ul>
+<li><code>batch-factor</code>:   New electrons must be added to the simulation in batches.
+                     Before the simulation starts, the simulator does a "prescan"
+                     to find out how often a batch needs to be added, and how
+                     big it must be. It is possible, though, that the prescan
+                     accidentally chooses too large a batch size. You will then
+                     see the simulation getting stuck. Reducing the batch factor
+                     then lets you reduce the batch size and avoid the simulation
+                     getting stuck. The default value is 0.9.</li>
+<li><code>capacity</code>:       The maximal number of electrons that can be simulated at
+                     once. There is a large performance penalty for setting this
+                     too small, and a small penalty for setting it too large. It
+                     does not affect the simulation results. The default value
+                     works well for all GPUs we tested. If the simulation gets
+                     stuck, then changing the capacity will not help, as the
+                     batch size scales with the capacity.</li>
+<li><code>prescan-size</code>:   Number of electrons to use in the prescan. Large values
+                     will result in a more accurate prescan, but it will take
+                     more time.</li>
+<li><code>sort-primaries</code>: Whether to sort the primary electrons before simulating.
+                     Sorting them (by starting position) speeds up the simulation
+                     itself, but the time spent sorting them usually costs more
+                     than is saved. Disabled by default.</li>
+</ul>
+<p>Finally, <code>nebula_cpu_edep</code> has two types of output: the regular output with
+detected electrons, and the energy deposition data. Therefore, it has the
+following additional options:</p>
+<ul>
+<li><code>detect-filename</code>:  File name to send the data for detected electrons to.
+                       This is <code>detected.bin</code> by default.</li>
+<li><code>deposit-filename</code>: File name to send the data for energy deposits to. By
+                       default, this is sent to the standard output.</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

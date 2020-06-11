@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Installation - Nebula documentation</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Nebula documentation</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">cstool <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Installation</a>
+</li>
+                                    
+<li>
+    <a href="../cstool-run/" class="dropdown-item">Running</a>
+</li>
+                                    
+<li>
+    <a href="../cstool-format-yaml/" class="dropdown-item">Parameter file format</a>
+</li>
+                                    
+<li>
+    <a href="../cstool-format-elf/" class="dropdown-item">Optical data file format</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Nebula <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../nebula-install/" class="dropdown-item">Installation</a>
+</li>
+                                    
+<li>
+    <a href="../nebula-run/" class="dropdown-item">Running</a>
+</li>
+                                    
+<li>
+    <a href="../nebula-format-tri/" class="dropdown-item">Geometry file format</a>
+</li>
+                                    
+<li>
+    <a href="../nebula-format-pri/" class="dropdown-item">Electron file format</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../tutorial-reels/" class="dropdown-item">REELS</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href=".." class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../cstool-run/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#installing-cstool" class="nav-link">Installing cstool</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#requirements" class="nav-link">Requirements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#download-and-compile-elsepa" class="nav-link">Download and compile ELSEPA</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#download-and-install-cstool" class="nav-link">Download and install cstool</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#run-cstool" class="nav-link">Run cstool</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="installing-cstool">Installing cstool</h1>
+<h2 id="requirements">Requirements</h2>
+<p>cstool is a Python 3 tool. It depends on ELSEPA, which you need to compile and
+install yourself.</p>
+<p>Before you begin, be sure that the following software is installed:</p>
+<ul>
+<li>Python 3.5 or greater</li>
+<li>On Linux: a fortran77 compiler</li>
+</ul>
+<p>All required python packages can be easily installed via pip.</p>
+<h2 id="download-and-compile-elsepa">Download and compile ELSEPA</h2>
+<h3 id="on-linux">On Linux</h3>
+<p><a href="https://doi.org/10.17632/5zzrz874tt.1">Download ELSEPA</a> from the official
+website. Unpack the archive, and compile the software with the following
+commands:</p>
+<pre><code class="sh">gfortran -O -Wall elscata.f -o elscata
+gfortran -O -Wall elscatm.f -o elscatm
+</code></pre>
+
+<p>Then, add the folder containing ELSEPA to your <code>PATH</code> environment variable, so
+that cstool will be able to find it. This can be done with the following:</p>
+<pre><code class="sh">export PATH=$PATH:/path/to/elsepa
+</code></pre>
+
+<p>It is often a good idea to add this line to the <code>.bashrc</code> file in your home
+directory, otherwise you will have to do this every time you start a new
+terminal session.</p>
+<h3 id="on-windows">On Windows</h3>
+<p>It is possible to compile ELSEPA yourself on Windows by installing a fortran
+compiler. Alternatively, you can get a zip file with pre-compiled executables
+<a href="../data/elsepa.zip">here</a>.</p>
+<p>Extract the zip file, and add the folder to the PATH environment variable by
+doing this every time you run cstool:</p>
+<pre><code class="sh">set PATH=%PATH%;C:\path\to\elsepa;
+</code></pre>
+
+<h2 id="download-and-install-cstool">Download and install cstool</h2>
+<h3 id="on-linux_1">On Linux</h3>
+<p>Get the code from github:</p>
+<pre><code class="sh">git clone https://github.com/nebula-simulator/cstool
+</code></pre>
+
+<p>You are now recommended to create a virtual environment, so that you don't
+contaminate your regular python setup when you install cstool:</p>
+<pre><code class="sh">python -m venv cstool-env
+source cstool-env/bin/activate
+pip install --upgrade pip
+</code></pre>
+
+<p>Then install cstool:</p>
+<pre><code class="sh">cd cstool
+pip install .
+</code></pre>
+
+<h3 id="on-windows_1">On Windows</h3>
+<p>Instructions will follow...</p>
+<h2 id="run-cstool">Run cstool</h2>
+<p>See the <a href="../cstool-run/">next page</a> for instructions on running cstool.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
