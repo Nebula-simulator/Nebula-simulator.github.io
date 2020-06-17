@@ -25,13 +25,20 @@ data = np.fromfile(filename, dtype=electron_dtype)
 print("Number of electrons detected: {}".format(len(data)))
 
 
-# Make a histogram of energies
-N_bins = 4*int(np.max(data['E']))
-spectrum, bin_edges = np.histogram(data['E'], bins=N_bins)
+# Make a histogram of pixel indices
+xmin = data['px'].min()
+xmax = data['px'].max()
+ymin = data['py'].min()
+ymax = data['py'].max()
+H, xedges, yedges = np.histogram2d(data['px'], data['py'],
+	bins = [
+		np.linspace(xmin-.5, xmax+.5, xmax-xmin+2),
+		np.linspace(ymin-.5, ymax+.5, ymax-ymin+2)
+	])
 
-# Make a line plot
-bin_centers = (bin_edges[1:] + bin_edges[:-1]) / 2
-plt.plot(bin_centers, spectrum)
-plt.xlabel('Energy (eV)')
-plt.ylabel('Intensity (a.u.)')
+# Make a plot
+plt.imshow(H.T, cmap='gray', vmin=0)
+plt.colorbar()
+plt.xlabel('x pixel')
+plt.ylabel('y pixel')
 plt.show()

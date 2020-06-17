@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Installation - Nebula documentation</title>
+        <title>SEM image - Nebula documentation</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -36,12 +36,12 @@
                             <li class="navitem">
                                 <a href=".." class="nav-link">Home</a>
                             </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">cstool <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="./" class="dropdown-item active">Installation</a>
+    <a href="../cstool-install/" class="dropdown-item">Installation</a>
 </li>
                                     
 <li>
@@ -78,7 +78,7 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -87,7 +87,7 @@
 </li>
                                     
 <li>
-    <a href="../tutorial-sem/" class="dropdown-item">SEM image</a>
+    <a href="./" class="dropdown-item active">SEM image</a>
 </li>
                                 </ul>
                             </li>
@@ -100,12 +100,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href=".." class="nav-link">
+                                <a rel="prev" href="../tutorial-reels/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../cstool-run/" class="nav-link">
+                                <a rel="next" class="nav-link disabled">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -127,21 +127,25 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#installing-cstool" class="nav-link">Installing cstool</a>
+            <li class="nav-item" data-level="1"><a href="#sem-image-tutorial" class="nav-link">SEM image tutorial</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#requirements" class="nav-link">Requirements</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#download-and-compile-elsepa" class="nav-link">Download and compile ELSEPA</a>
+            <li class="nav-item" data-level="2"><a href="#introduction" class="nav-link">Introduction</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#download-and-install-cstool" class="nav-link">Download and install cstool</a>
+            <li class="nav-item" data-level="2"><a href="#input-geometry" class="nav-link">Input geometry</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#run-cstool" class="nav-link">Run cstool</a>
+            <li class="nav-item" data-level="2"><a href="#input-electrons" class="nav-link">Input electrons</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#running-the-simulator" class="nav-link">Running the simulator</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#analyzing-the-output" class="nav-link">Analyzing the output</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -152,64 +156,133 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="installing-cstool">Installing cstool</h1>
-<h2 id="requirements">Requirements</h2>
-<p>cstool is a Python 3 tool. It depends on ELSEPA, which you need to compile and
-install yourself.</p>
-<p>Before you begin, be sure that the following software is installed:</p>
+<h1 id="sem-image-tutorial">SEM image tutorial</h1>
+<p>Before you begin this tutorial, make sure you have followed these steps:</p>
 <ul>
-<li>Python 3.5 or greater</li>
-<li>On Linux: a fortran77 compiler</li>
+<li><a href="../cstool-install/">Install cstool</a></li>
+<li><a href="../cstool-run/">Run cstool</a> for two materials: silicon and pmma</li>
+<li><a href="../nebula-install/">Install nebula</a></li>
 </ul>
-<p>All required python packages can be easily installed via pip.</p>
-<h2 id="download-and-compile-elsepa">Download and compile ELSEPA</h2>
-<h3 id="on-linux">On Linux</h3>
-<p><a href="https://doi.org/10.17632/5zzrz874tt.1">Download ELSEPA</a> from the official
-website. Unpack the archive, and compile the software with the following
-commands:</p>
-<pre><code class="sh">gfortran -O -Wall elscata.f -o elscata
-gfortran -O -Wall elscatm.f -o elscatm
+<p>We also recommend to follow the <a href="../tutorial-reels/">REELS tutorial</a> first,
+because this one will be more complicated.</p>
+<h2 id="introduction">Introduction</h2>
+<p>In this second tutorial, we will simulate a Scanning Electron Microscope (SEM)
+image. To keep things simple, the geometry we will be looking at is a single
+PMMA line on top of a silicon substrate. This is a common situation in
+lithography: the PMMA represents a developed line of photoresist on top of a
+silicon substrate. We are interested in a secondary electron (SE) image of this
+geometry.</p>
+<p><center><img alt="Sketch of the setup" src="../img/sem.svg" /></center></p>
+<h2 id="input-geometry">Input geometry</h2>
+<p>A <a href="../data/tutorial/sem.tri">triangle file</a> can be downloaded here. Open it in a
+text editor and take a look: it is more complicated than the geometry for the
+REELS tutorial.</p>
+<p>The first six triangles represent the substrate. All are at z = 0. The first
+pair of triangles is an interface between material 0 (substrate) and -123
+(vacuum) for x &lt; 20 nm. The second pair of triangles is between materials 0
+(substrate) and 1 (resist); the x coordinates run from -20 nm to +20 nm. The
+last pair of triangles is again a substrate-vacuum interface for x &gt; 20 nm.</p>
+<p>The three following pairs of triangles represent the three sides of the line:
+first at x = -20 nm, then at z = 30 nm, and finally at x = + 20 nm. All of these
+have material 1 (resist) on one side and -123 (vacuum) on the other.</p>
+<p>All this is wrapped in a similar box as in the REELS tutorial: a detector above
+(at z = 40 nm this time, because it must be above the line), mirrors on the
+sides, and a terminator deep down in the substrate.</p>
+<p>This time, though, the detector has material index -125 instead of -126.
+Material -126 detects all electrons, but material -125 detects only the
+low-energy (&lt; 50 eV) electrons. These "secondary electrons" (SEs) contain
+information about the shape of the sample. High-energy &gt; 50 eV "backscattered
+electrons" (BSEs) do not contain much shape information, but are more sensitive
+to material composition instead. Right now, we are interested in SEs.  If a BSE
+hits a detector of material -125, it passes through. In our geometry, that means
+it leaves the simulation box and is taken out of the simulation. An alternative
+approach to using material -125 is to use material -126, and apply an energy
+filter in post-processing. That's fine of course, but this approach means that
+the output files from the simulator will be a bit smaller.</p>
+<h2 id="input-electrons">Input electrons</h2>
+<p>We will launch 500 eV primary electrons from z = 35 nm, nicely between the top
+of the line (at z = 30) and the detectors (at z = 40 nm). We are now interested
+in a SEM image, so the electrons will start on a grid in the xy plane. To mimic
+a real SEM even more accurately, the number of electrons per pixel will be
+variable (assuming Poissonian statistics) and the beam spot will be Gaussian,
+with σ = 1 nm.</p>
+<p>A python script to generate such a primary electron file can be downloaded
+<a href="../data/tutorial/sem-pri.py">here</a>. The relevant part of the script looks like this:</p>
+<pre><code class="python"># Parameters
+z = 35                            # starting z
+xpx = np.linspace(-50, 50, 101)   # x pixels: between -50nm and +50nm, in steps of 1nm
+ypx = np.linspace(-100, 100, 201) # y pixels: between -100nm and +100nm, in steps of 1nm
+energy = 500                      # Beam energy, in eV
+epx = 100                         # Number of electrons per pixel
+sigma = 1                         # Standard deviation of Gaussian beam spot size
+poisson = True                    # Whether to use Poisson shotnoise
+
+# Open file
+with open('sem.pri', 'wb') as file:
+    # Iterate over pixels
+    for i, xmid in enumerate(xpx):
+        for j, ymid in enumerate(ypx):
+            # Number of electrons in this specific pixel
+            N_elec = np.random.poisson(epx) if poisson else epx
+
+            # Allocate numpy buffer
+            buffer = np.empty(N_elec, dtype=electron_dtype)
+
+            # Fill with data
+            buffer['x'] = np.random.normal(xmid, sigma, N_elec)
+            buffer['y'] = np.random.normal(ymid, sigma, N_elec)
+            buffer['z'] = z
+            buffer['dx'] = 0
+            buffer['dy'] = 0
+            buffer['dz'] = -1
+            buffer['E'] = energy
+            buffer['px'] = i
+            buffer['py'] = j
+
+            # Write buffer to file
+            buffer.tofile(file)
 </code></pre>
 
-<p>Then, add the folder containing ELSEPA to your <code>PATH</code> environment variable, so
-that cstool will be able to find it. This can be done with the following:</p>
-<pre><code class="sh">export PATH=$PATH:/path/to/elsepa
+<p>As <a href="../tutorial-reels/">before</a>, the first set of lines defines a few parameters.
+<code>xpx</code> and <code>ypx</code> are a list of pixel coordinates, in nm: the function
+<code>np.linspace(start, stop, num)</code> generates an array of <code>num</code> evenly-spaced
+numbers between <code>start</code> and <code>stop</code>.</p>
+<p>After opening the output file, there is a nested for-loop over the pixels in the
+image. <code>enumerate()</code> means that you get both the index of the value in an array,
+here <code>i</code> and <code>j</code>; as well as the actual value (<code>xmid</code> and <code>ymid</code>). We will need
+the indices for the pixel indices, and the actual values for the real beam
+positions in nanometers.</p>
+<p>We then determine the number of electrons that will land at this specific pixel.
+If the <code>poisson</code> parameter was true, this is a random number; otherwise we use
+the target value. We then allocate a buffer of exactly the number of electrons
+we want to send into this pixel.</p>
+<p>The buffer can then be filled. The x and y coordinates of the electrons are
+random, normally distributed around xmid and ymid as discussed above. The
+function <code>np.randon.normal(mu, sigma, size)</code> generates an array of random
+numbers of length <code>size</code>. So, in these two lines, we set <code>buffer['x']</code> and
+<code>buffer['y']</code> to an array of values with the same length as the buffer itself.
+The other parameters are set to scalars, which means to fill the entire buffer
+with the same value.</p>
+<p>In the last line, we write the buffer to file and the loop continues with the
+next pixel.</p>
+<h2 id="running-the-simulator">Running the simulator</h2>
+<p>We will now generate the primary electrons and run the simulator:</p>
+<pre><code class="sh">python sem-pri.py
+nebula_gpu sem.tri sem.pri silicon.mat pmma.mat &gt; output.det
 </code></pre>
 
-<p>It is often a good idea to add this line to the <code>.bashrc</code> file in your home
-directory, otherwise you will have to do this every time you start a new
-terminal session.</p>
-<h3 id="on-windows">On Windows</h3>
-<p>It is possible to compile ELSEPA yourself on Windows by installing a fortran
-compiler. Alternatively, you can get a zip file with pre-compiled executables
-<a href="../data/elsepa.zip">here</a>.</p>
-<p>Extract the zip file, and add the folder to the PATH environment variable by
-doing this every time you run cstool:</p>
-<pre><code class="sh">set PATH=%PATH%;C:\path\to\elsepa;
+<p>If you do not have the GPU version, replace <code>nebula_gpu</code> by <code>nebula_cpu_mt</code> for
+a CPU-only simulation.</p>
+<h2 id="analyzing-the-output">Analyzing the output</h2>
+<p>To analyze the output, download the <a href="../data/tutorial/sem-analysis.py">analysis script</a>.
+To make a SEM image, we need to count the number of detected electrons per pixel.
+We do this with numpy's <code>histogram2d()</code> function.</p>
+<p>You can run the script as follows:</p>
+<pre><code class="sh">python sem-analysis.py output.det
 </code></pre>
 
-<h2 id="download-and-install-cstool">Download and install cstool</h2>
-<h3 id="on-linux_1">On Linux</h3>
-<p>Get the code from github:</p>
-<pre><code class="sh">git clone https://github.com/nebula-simulator/cstool
-</code></pre>
-
-<p>You are now recommended to create a virtual environment, so that you don't
-contaminate your regular python setup when you install cstool:</p>
-<pre><code class="sh">python -m venv cstool-env
-source cstool-env/bin/activate
-pip install --upgrade pip
-</code></pre>
-
-<p>Then install cstool:</p>
-<pre><code class="sh">cd cstool
-pip install .
-</code></pre>
-
-<h3 id="on-windows_1">On Windows</h3>
-<p>Instructions will follow...</p>
-<h2 id="run-cstool">Run cstool</h2>
-<p>See the <a href="../cstool-run/">next page</a> for instructions on running cstool.</p></div>
+<p>You should see the following SEM image:
+<center><img alt="Resulting SEM image" src="../img/sem-result.svg" /></center></p></div>
             </div>
         </div>
 

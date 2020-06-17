@@ -85,6 +85,10 @@
 <li>
     <a href="./" class="dropdown-item active">REELS</a>
 </li>
+                                    
+<li>
+    <a href="../tutorial-sem/" class="dropdown-item">SEM image</a>
+</li>
                                 </ul>
                             </li>
                         </ul>
@@ -101,7 +105,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" class="nav-link disabled">
+                                <a rel="next" href="../tutorial-sem/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -129,7 +133,11 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#input-files" class="nav-link">Input files</a>
+            <li class="nav-item" data-level="2"><a href="#input-geometry" class="nav-link">Input geometry</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#input-electrons" class="nav-link">Input electrons</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -161,7 +169,8 @@ Spectroscopy (REELS) experiment. The idea is simple: a thick and large sample is
 irradiated with electrons from above. Electrons that are emitted back up from
 the sample (in the "reflection" direction) reach a detector. We are interested
 in the energy distribution of these electrons.</p>
-<h2 id="input-files">Input files</h2>
+<p><center><img alt="Sketch of the setup" src="../img/reels.svg" /></center></p>
+<h2 id="input-geometry">Input geometry</h2>
 <p>A <a href="../data/tutorial/reels.tri">triangle file</a> can be downloaded here. Open it in a
 text editor and take a look. The exact meaning of these numbers are documented
 <a href="../nebula-format-tri/">here</a>.</p>
@@ -188,10 +197,48 @@ on both sides. Of course, if we want to simulate an infinitely thick sample we
 must make sure that the bottom plane is never reached by the electrons. But we
 now say that if the bottom plane <em>is</em> reached for whatever reason, we prefer to
 kill these electrons.</p>
-<p>We will launch a million 5 keV primary electrons from z = 5 nm. This position is
+<h2 id="input-electrons">Input electrons</h2>
+<p>We will launch a million 1 keV primary electrons from z = 5 nm. This position is
 nicely between the surface of the sample (at z = 0) and the detectors (at
-z = 10 nm) A python script to generate such a primary electron file can be
+z = 10 nm). A python script to generate such a primary electron file can be
 downloaded <a href="../data/tutorial/reels-pri.py">here</a>.</p>
+<p>The relevant part of the script looks like this:</p>
+<pre><code class="python">import numpy as np
+
+# Parameters:
+x = 0         # starting x
+y = 0         # starting y
+z = 5         # starting z
+N = 1000000   # Number of electrons
+energy = 1000 # Beam energy, in eV
+
+# Open file
+with open('reels.pri', 'wb') as file:
+    # Allocate numpy buffer
+    buffer = np.empty(N, dtype=electron_dtype)
+
+    # Fill with data
+    buffer['x'] = x
+    buffer['y'] = y
+    buffer['z'] = z
+    buffer['dx'] = 0
+    buffer['dy'] = 0
+    buffer['dz'] = -1
+    buffer['E'] = energy
+    buffer['px'] = 0
+    buffer['py'] = 0
+
+    # Write buffer to file
+    buffer.tofile(file)
+</code></pre>
+
+<p>The interesting part starts at <code>with open('reels.pri', 'wb') as file:</code>. This
+opens a file, <code>reels.pri</code>, for writing in binary format. The next line of code
+reserves a buffer that we will fill with the data for our primary electrons.
+<code>N</code> is the size of the buffer (number of primary electrons); <code>electron_dtype</code> is
+the data type described <a href="../nebula-format-pri/">here</a>. We then fill the buffer
+with data, setting the parameters for all <code>N</code> electrons to be the same. The last
+line writes this buffer to file.</p>
 <h2 id="running-the-simulator">Running the simulator</h2>
 <p>Now, let us generate the primary electrons and run the simulator:</p>
 <pre><code class="sh">python reels-pri.py
@@ -206,7 +253,10 @@ an <code>output.det</code> file, which contains the detected electrons.</p>
 This script reads the detected electrons, makes a histogram of their energy, and
 shows this in a plot. You can run it as follows:</p>
 <pre><code class="sh">python reels-analysis.py output.det
-</code></pre></div>
+</code></pre>
+
+<p>You should see following energy spectrum:
+<center><img alt="Resulting energy spectrum" src="../img/reels-result.svg" /></center></p></div>
             </div>
         </div>
 

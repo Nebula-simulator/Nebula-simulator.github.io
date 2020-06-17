@@ -21,18 +21,18 @@ electron_dtype = np.dtype([
 # Open file
 with open('reels.pri', 'wb') as file:
 	# Allocate numpy buffer
-	array = np.empty(N, dtype=electron_dtype)
+	buffer = np.empty(N, dtype=electron_dtype)
 
 	# Fill with data
-	array['x'] = x
-	array['y'] = y
-	array['z'] = z
-	array['dx'] = 0
-	array['dy'] = 0
-	array['dz'] = -1
-	array['E'] = energy
-	array['px'] = 0
-	array['py'] = 0
+	buffer['x'] = x
+	buffer['y'] = y
+	buffer['z'] = z
+	buffer['dx'] = 0
+	buffer['dy'] = 0
+	buffer['dz'] = -1
+	buffer['E'] = energy
+	buffer['px'] = 0
+	buffer['py'] = 0
 
 	# Write buffer to file
-	array.tofile(file)
+	buffer.tofile(file)
