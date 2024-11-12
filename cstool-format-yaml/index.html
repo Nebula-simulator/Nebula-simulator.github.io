@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,14 +10,15 @@
         <link rel="shortcut icon" href="../img/favicon.ico">
         <title>Parameter file format - Nebula documentation</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
-
-        <script src="../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
@@ -25,7 +26,7 @@
             <div class="container">
                 <a class="navbar-brand" href="..">Nebula documentation</a>
                 <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -33,11 +34,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-                            <li class="navitem">
+                            <li class="nav-item">
                                 <a href=".." class="nav-link">Home</a>
                             </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">cstool <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">cstool</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -49,7 +50,7 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">Parameter file format</a>
+    <a href="./" class="dropdown-item active" aria-current="page">Parameter file format</a>
 </li>
                                     
 <li>
@@ -57,8 +58,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Nebula <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Nebula</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -78,8 +79,8 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorials <b class="caret"></b></a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tutorials</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -93,9 +94,9 @@
                             </li>
                         </ul>
 
-                    <ul class="nav navbar-nav ml-auto">
+                    <ul class="nav navbar-nav ms-md-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
@@ -116,36 +117,36 @@
 
         <div class="container">
             <div class="row">
-                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
     <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
             <span class="fa fa-angle-down"></span>
         </button>
     </div>
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#cstool-parameter-file-format" class="nav-link">cstool parameter file format</a>
+            <li class="nav-item" data-bs-level="1"><a href="#cstool-parameter-file-format" class="nav-link">cstool parameter file format</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#generic-parameters" class="nav-link">Generic parameters</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#element-list" class="nav-link">Element list</a>
+            <li class="nav-item" data-bs-level="2"><a href="#generic-parameters" class="nav-link">Generic parameters</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#band-structure" class="nav-link">Band structure</a>
+            <li class="nav-item" data-bs-level="2"><a href="#element-list" class="nav-link">Element list</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#optical" class="nav-link">Optical</a>
+            <li class="nav-item" data-bs-level="2"><a href="#band-structure" class="nav-link">Band structure</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#phonon" class="nav-link">Phonon</a>
+            <li class="nav-item" data-bs-level="2"><a href="#optical" class="nav-link">Optical</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#phonon" class="nav-link">Phonon</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -159,7 +160,7 @@
 <h1 id="cstool-parameter-file-format">cstool parameter file format</h1>
 <p>Parameters for cstool are provided in the YAML text format. An example paramter
 file is:</p>
-<pre><code class="yaml">name:           alumina
+<pre><code class="language-yaml">name:           alumina
 density:        3.98 g/cm³
 
 elements:
@@ -187,7 +188,6 @@ phonon:
     transversal:
         c_s:    6512 m/s
 </code></pre>
-
 <h2 id="generic-parameters">Generic parameters</h2>
 <p>The following generic parameters are required:</p>
 <ul>
@@ -198,9 +198,8 @@ phonon:
 <h2 id="element-list">Element list</h2>
 <p>Next in the example file is the list of elements in the material. Each element
 should have its own entry; each entry should look like this:</p>
-<pre><code class="yaml">    Al: { count: 2, Z: 13, M: 26.982 g/mol }
+<pre><code class="language-yaml">    Al: { count: 2, Z: 13, M: 26.982 g/mol }
 </code></pre>
-
 <ul>
 <li><code>Al</code> is the name of the element. This is not used by cstool, but you should
    use a reasonable name for the benefit of other humans.</li>
@@ -235,7 +234,7 @@ optical parameters. The exact file format of that file is described
 <p>These are parameters for the electron-acoustic phonon scattering model of
 <a href="https://doi.org/10.1016/S0368-2048(01)00368-1">Schreiber and Fitting</a>.</p>
 <p>The phonon section may look as follows (parameters are for silicon):</p>
-<pre><code class="yaml">phonon:
+<pre><code class="language-yaml">phonon:
     lattice:    5.43071 Å
     m_dos:      1.08 m_e
     m_eff:      0.26 m_e
@@ -250,7 +249,6 @@ optical parameters. The exact file format of that file is described
         c_s:    5842 m/s
         ac_def: 5.0 eV
 </code></pre>
-
 <p>One parameter is always required:</p>
 <ul>
 <li><code>lattice</code>, which is the material's lattice constant.</li>
@@ -285,7 +283,7 @@ file all the way at the top of this page.</p>
 potential using the resistivity (which is much easier to find). Instead of
 providing <code>ac_def</code> in the isotropic branch, you may provide a <code>resistivity</code>
 parameter. The phonon section may then look as follows (parameters are for gold):</p>
-<pre><code class="yaml">phonon:
+<pre><code class="language-yaml">phonon:
     lattice:         4.0782 Å
 
     isotropic:
@@ -304,31 +302,29 @@ parameter. The phonon section may then look as follows (parameters are for gold)
             <hr>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
         <script>
             var base_url = "..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../js/base.js" defer></script>
-        <script src="../search/main.js" defer></script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
+                <p>From here you can search these documents. Enter your search terms below.</p>
                 <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
-                <div id="mkdocs-search-results"></div>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
             </div>
             <div class="modal-footer">
             </div>
@@ -339,7 +335,7 @@ parameter. The phonon section may then look as follows (parameters are for gold)
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <table class="table">
